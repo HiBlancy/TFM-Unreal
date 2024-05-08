@@ -20,8 +20,10 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &APlayerPawn::Move);
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &APlayerPawn::Move);//Movieminto del jugar
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &APlayerPawn::Turn);
+
+	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &APlayerPawn::Fire); //Disparo del jugador
 }
 
 void APlayerPawn::Tick(float DeltaTime)
