@@ -17,6 +17,12 @@ void AEnemyPawn::Tick(float DeltaTime)
 	}
 }
 
+void AEnemyPawn::HandleDestruction()
+{
+	Super::HandeDestruction();
+	Destroy();
+}
+
 void AEnemyPawn::BeginPlay()
 {
 	Super::BeginPlay();
