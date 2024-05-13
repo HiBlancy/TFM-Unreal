@@ -32,11 +32,11 @@ void APlayerPawn::Tick(float DeltaTime)
 
 	if (PlayerController)
 	{
-		FHitResult HitResult;
-		PlayerController->GetHitResultUnderCursor(
-			ECollisionChannel::ECC_Visibility, 
-			false, 
-			HitResult);
+		FHitResult HitResult; //Variable para almacenar info sobre un impacto
+		PlayerController->GetHitResultUnderCursor( //obtener info sobre el inpacto bajo la posicion del cursor
+			ECollisionChannel::ECC_Visibility, //canal de colision que se utiliza para realizar la deteccion de impacto, solo los visibles
+			false, //si fuera true el trazado de rayos considerara ibjetos de colision, false es solo para objetos visibles
+			HitResult); //donde se almacenaa la info sobre el impacto
 
 		RotateTurret(HitResult.ImpactPoint);
 	}
@@ -44,9 +44,10 @@ void APlayerPawn::Tick(float DeltaTime)
 
 void APlayerPawn::HandleDestruction()
 {
-	Super::HandeDestruction();
+	Super::HandleDestruction();
 	SetActorHiddenInGame(true);
 	SetActorTickEnabled(false);
+	bAlive = false;
 }
 
 void APlayerPawn::BeginPlay()

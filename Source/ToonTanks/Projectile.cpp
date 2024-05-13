@@ -6,6 +6,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameFramework/DamageType.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -19,6 +20,9 @@ AProjectile::AProjectile()
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileMovementComponent->MaxSpeed = 1300.f;
 	ProjectileMovementComponent->InitialSpeed = 1300.f;
+
+	SmokeParticles = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("Smoke Particles"));
+	SmokeParticles->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
@@ -27,7 +31,15 @@ void AProjectile::BeginPlay()
 	Super::BeginPlay();
 	
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
-	//AddDynamics es un controlador de eventos dinamico al evento OnComponentHit, y cuando este se activa llama al metodo de la clase asignada
+	//AddDynamics es un controlador de eventos dinamico al evento OnComponentHit, y cuando este se activa llama al metodo de la clase asignada	
+	
+	if (LaunchSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			LaunchSound,
+			GetActorLocation());
+	}
 }
 
 // Called every frame
@@ -44,14 +56,16 @@ void AProjectile::OnHit(
 	FVector NormalImpulse, //Impulso normal generado por la colision, fuerza aplicada a los objetos en la direccion perpendicular a la superficie
 	const FHitResult& Hit) //Info detallada de la colision (ubi, normal de la superficie en el punto de impacto...)
 {
-	auto MyOwner = GetOwner();
-	if (MyOwner == nullptr) return;
+	AActor* MyOwner = GetOwner();
+	if (MyOwner == nullptr) 
+	{
+		Destroy();
+		return;
+	}
 
-	auto MyOwnerInstigator = MyOwner->GetInstigatorController();
+	AController* MyOwnerInstigator = MyOwner->GetInstigatorController();
 
-	auto DamageTypeClass = UDamageType::StaticClass();
-
-	//auto = AActor* MyOwner
+	UClass* DamageTypeClass = UDamageType::StaticClass();
 
 	if (OtherActor && OtherActor != this && OtherActor != MyOwner)
 	{
@@ -61,6 +75,29 @@ void AProjectile::OnHit(
 			MyOwnerInstigator, //Quien causa el damage
 			this, //Actor que esta llamando a la funcion, indica que ese actor que esta causando el damage
 			DamageTypeClass); //Tipo de damage
-		Destroy();
-	}
+
+		if(HitParticles) //Comprobar que sea valido antes de lanzar la llamada
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(
+				this,
+				HitParticles,
+				GetActorLocation(),
+				GetActorRotation());
+		}		
+
+		if (HitSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(
+				this,
+				HitSound,
+				GetActorLocation());
+		}
+
+		if (HitCameraShakeClass)
+		{
+			GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(HitCameraShakeClass);
+		}
+	}	
+	
+	Destroy();
 }

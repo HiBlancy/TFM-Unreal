@@ -23,7 +23,21 @@ protected:
 
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartGame();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameOver(bool bWonGame);
+
 private:
 
 	class APlayerPawn* Player;
+	class ATankVanguardPlayerController* TankVanguardPlayerController;
+
+	float StartDelay = 3.f;
+
+	void HandelGameStart();
+
+	int32 TargetTowers = 0;
+	int32 GetTargetTowerCount();
 };

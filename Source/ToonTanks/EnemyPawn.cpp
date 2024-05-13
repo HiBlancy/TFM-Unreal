@@ -19,7 +19,7 @@ void AEnemyPawn::Tick(float DeltaTime)
 
 void AEnemyPawn::HandleDestruction()
 {
-	Super::HandeDestruction();
+	Super::HandleDestruction();
 	Destroy();
 }
 
@@ -35,7 +35,12 @@ void AEnemyPawn::BeginPlay()
 
 void AEnemyPawn::CheckFireCondition()
 {
-	if (InFireRange())
+	if (Player == nullptr)
+	{
+		return;
+	}
+
+	if (InFireRange() && Player->bAlive)
 	{
 		Fire();
 	}
