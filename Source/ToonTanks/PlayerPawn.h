@@ -26,9 +26,9 @@ public:
 
 	void HandleDestruction();
 
-	APlayerController* GetTankPlayerController() const 
+	APlayerController* GetPlayerController() const 
 	{
-		return TankPlayerController;
+		return PlayerController;
 	}
 
 
@@ -53,5 +53,5 @@ private:
 	void Move(float Value);
 	void Turn(float Value);
 
-	APlayerController* TankPlayerController;
+	APlayerController* PlayerController;
 };

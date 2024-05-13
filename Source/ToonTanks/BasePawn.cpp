@@ -7,10 +7,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Projectile.h"
 
-// Sets default values
 ABasePawn::ABasePawn()
 {
- 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	CapsuleComp = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule Collider"));
@@ -51,5 +49,7 @@ void ABasePawn::Fire()
 	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
 
 	auto Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
-	Projectile->SetOwner(this);
+	//auto = AProjectile* Projectile
+	Projectile->SetOwner(this); 
+	//Cada vez que un actor instancia un proyectil, el proyectil es hijo de este
 }

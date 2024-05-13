@@ -35,5 +35,5 @@ private:
 	USceneComponent* ProjectileSpawnPoint;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
-	TSubclassOf<class AProjectile> ProjectileClass;
+	TSubclassOf<class AProjectile> ProjectileClass; //referencia a clases que son subclases o hijas de una clase especifica
 };

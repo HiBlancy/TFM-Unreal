@@ -30,10 +30,10 @@ void APlayerPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (TankPlayerController)
+	if (PlayerController)
 	{
 		FHitResult HitResult;
-		TankPlayerController->GetHitResultUnderCursor(
+		PlayerController->GetHitResultUnderCursor(
 			ECollisionChannel::ECC_Visibility, 
 			false, 
 			HitResult);
@@ -53,7 +53,7 @@ void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
-	TankPlayerController = Cast<APlayerController>(GetController());
+	PlayerController = Cast<APlayerController>(GetController());
 }
 
 void APlayerPawn::Move(float Value)

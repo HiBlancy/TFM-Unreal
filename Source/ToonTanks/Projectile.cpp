@@ -27,6 +27,7 @@ void AProjectile::BeginPlay()
 	Super::BeginPlay();
 	
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+	//AddDynamics es un controlador de eventos dinamico al evento OnComponentHit, y cuando este se activa llama al metodo de la clase asignada
 }
 
 // Called every frame
@@ -36,13 +37,13 @@ void AProjectile::Tick(float DeltaTime)
 
 }
 
-void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+void AProjectile::OnHit(
+	UPrimitiveComponent* HitComp, //Componente primitivo en el que ocurrio la colision, asociado al actor que tiene esta funcion
+	AActor* OtherActor, //Actor con el que se ha producido la colision, actor involucrado en la colision
+	UPrimitiveComponent* OtherComponent, //Componente primitivo del actor colisionado, componente de colision asociado al OtherActor
+	FVector NormalImpulse, //Impulso normal generado por la colision, fuerza aplicada a los objetos en la direccion perpendicular a la superficie
+	const FHitResult& Hit) //Info detallada de la colision (ubi, normal de la superficie en el punto de impacto...)
 {
-	/*UE_LOG(LogTemp, Warning, TEXT("Hit something"));
-	UE_LOG(LogTemp, Warning, TEXT("HitComp: %s"), *HitComp->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("OtherActor: %s"), *OtherActor->GetName());
-	UE_LOG(LogTemp, Warning, TEXT("OtherComp: %s"), *OtherComponent->GetName());*/
-
 	auto MyOwner = GetOwner();
 	if (MyOwner == nullptr) return;
 
@@ -50,9 +51,16 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 
 	auto DamageTypeClass = UDamageType::StaticClass();
 
+	//auto = AActor* MyOwner
+
 	if (OtherActor && OtherActor != this && OtherActor != MyOwner)
 	{
-		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerInstigator, this, DamageTypeClass);
+		UGameplayStatics::ApplyDamage(
+			OtherActor, //Actor que recibira el damage
+			Damage, //Cantidad de damage
+			MyOwnerInstigator, //Quien causa el damage
+			this, //Actor que esta llamando a la funcion, indica que ese actor que esta causando el damage
+			DamageTypeClass); //Tipo de damage
 		Destroy();
 	}
 }

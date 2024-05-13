@@ -8,13 +8,13 @@
 
 void ATankVanguardGameMode::ActorDied(AActor* DeadActor)
 {
-	if (DeadActor == Tank)
+	if (DeadActor == Player)
 	{
-		Tank->HandeDestruction();
-		if (Tank->GetTankPlayerController())
+		Player->HandeDestruction();
+		if (Player->GetPlayerController())
 		{
-			Tank->DisableInput(Tank->GetTankPlayerController());
-			Tank->GetTankPlayerController()->bShowMouseCursor = false;
+			Player->DisableInput(Player->GetPlayerController());
+			Player->GetPlayerController()->bShowMouseCursor = false;
 		}		
 	}
 	else if (AEnemyPawn* DestroyedTower = Cast<AEnemyPawn>(DeadActor))
@@ -27,5 +27,5 @@ void ATankVanguardGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Tank = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0));
+	Player = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0));
 }

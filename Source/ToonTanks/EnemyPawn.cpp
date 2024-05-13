@@ -27,7 +27,8 @@ void AEnemyPawn::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Player = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0)); //castearlo porque como el enemigo es hijo de BasePawn, no puede almacenar puntero tipo padre el hijo
+	Player = Cast<APlayerPawn>(UGameplayStatics::GetPlayerPawn(this, 0)); 
+	//castearlo porque como el enemigo es hijo de BasePawn, no puede almacenar puntero tipo padre el hijo
 
 	GetWorldTimerManager().SetTimer(FireRateTimerHandel, this, &AEnemyPawn::CheckFireCondition, FireRate, true);
 }

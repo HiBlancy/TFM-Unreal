@@ -25,5 +25,5 @@ protected:
 
 private:
 
-	class APlayerPawn* Tank;
+	class APlayerPawn* Player;
 };
