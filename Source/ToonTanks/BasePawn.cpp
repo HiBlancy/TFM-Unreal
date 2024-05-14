@@ -24,6 +24,8 @@ ABasePawn::ABasePawn()
 
 	ProjectileSpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Spawn Point"));
 	ProjectileSpawnPoint->SetupAttachment(TurretMesh);
+
+	CurrentAmmo = 0;
 }
 
 void ABasePawn::HandleDestruction()
@@ -66,11 +68,22 @@ void ABasePawn::RotateTurret(FVector LookAtTarget)
 
 void ABasePawn::Fire()
 {
-	FVector Location = ProjectileSpawnPoint->GetComponentLocation();
-	FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
+	if (CurrentAmmo > 0)
+	{
+		CurrentAmmo--;
 
-	AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
-	//auto = AProjectile* Projectile
-	Projectile->SetOwner(this); 
-	//Cada vez que un actor instancia un proyectil, el proyectil es hijo de este
+		FVector Location = ProjectileSpawnPoint->GetComponentLocation();
+		FRotator Rotation = ProjectileSpawnPoint->GetComponentRotation();
+
+		AProjectile* Projectile = GetWorld()->SpawnActor<AProjectile>(ProjectileClass, Location, Rotation);
+		//auto = AProjectile* Projectile
+		Projectile->SetOwner(this);
+		//Cada vez que un actor instancia un proyectil, el proyectil es hijo de este
+
+		UE_LOG(LogTemp, Warning, TEXT("You have %d Bullets"), CurrentAmmo);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No bullets left!"));
+	}
 }

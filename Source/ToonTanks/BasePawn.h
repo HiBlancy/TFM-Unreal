@@ -21,6 +21,8 @@ protected:
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();
 
+	int32 CurrentAmmo;
+
 private:
 	UPROPERTY(VisibleAnywhere ,BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleComp;

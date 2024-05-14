@@ -33,10 +33,18 @@ public:
 
 	bool bAlive = true;
 
+	void Reload();
+
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	//AMMO
+	UPROPERTY(EditAnywhere, Category = "Ammo")
+	int32 MaxAmmo;
+
+	UPROPERTY(EditAnywhere, Category = "Ammo")
+	int32 ExcessAmmo;
 
 
 private:

@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
+#include "Components/InputComponent.h"
 
 APlayerPawn::APlayerPawn()
 {
@@ -14,6 +15,10 @@ APlayerPawn::APlayerPawn()
 
 	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera Component"));
 	CameraComponent->SetupAttachment(SpringArm);
+
+	CurrentAmmo = 12;
+	MaxAmmo = 12;
+	ExcessAmmo = 8;
 }
 
 void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -55,6 +60,27 @@ void APlayerPawn::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerController = Cast<APlayerController>(GetController());
+
+	InputComponent->BindAction(
+		"Reload", //Nombre asignado desde el editor de la tecla
+		IE_Pressed, //Cuando se presiona
+		this, //Esto
+		&APlayerPawn::Reload); //Llama a esta funcion 
+}
+
+void APlayerPawn::Reload()
+{
+	int32 MissingAmmo = MaxAmmo - CurrentAmmo;
+	if (MissingAmmo > 0)
+	{
+		int32 ReloadAmount = FMath::Min(MissingAmmo, ExcessAmmo);
+		CurrentAmmo += ReloadAmount;
+		ExcessAmmo -= ReloadAmount;
+
+		UE_LOG(LogTemp, Warning, TEXT("Reloaded %d bullets"), ReloadAmount);
+		UE_LOG(LogTemp, Warning, TEXT("You have %d more bullets"), ExcessAmmo);
+		UE_LOG(LogTemp, Warning, TEXT("Current %d bullets"), CurrentAmmo);
+	}
 }
 
 void APlayerPawn::Move(float Value)
