@@ -16,6 +16,9 @@ class TOONTANKS_API AEnemyPawn : public ABasePawn
 	
 
 public:
+
+	AEnemyPawn();
+
 	virtual void Tick(float DeltaTime) override;
 
 	void HandleDestruction();

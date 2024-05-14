@@ -45,3 +45,8 @@ void UHealthComponent::DamegeTaken(
 		TankVanguardGameMode->ActorDied(DamagedActor);
 	}
 }
+
+float UHealthComponent::GetHealthPercent() const
+{
+	return Health / MaxHealt;
+}
