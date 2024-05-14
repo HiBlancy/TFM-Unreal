@@ -43,7 +43,7 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Ammo")
 	int32 MaxAmmo;
 
-	UPROPERTY(EditAnywhere, Category = "Ammo")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
 	int32 ExcessAmmo;
 
 

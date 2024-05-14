@@ -76,6 +76,4 @@ int32 ATankVanguardGameMode::GetTargetTowerCount()
 	TArray<AActor*> EnemyTurrets;
 	UGameplayStatics::GetAllActorsOfClass(this, AEnemyPawn::StaticClass(), EnemyTurrets);
 	return EnemyTurrets.Num();
-
-
 }

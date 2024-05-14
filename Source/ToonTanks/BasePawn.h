@@ -17,11 +17,12 @@ public:
 
 	void HandleDestruction();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CurrentAmmo;
+
 protected:
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();
-
-	int32 CurrentAmmo;
 
 private:
 	UPROPERTY(VisibleAnywhere ,BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
