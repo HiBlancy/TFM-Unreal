@@ -26,7 +26,6 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	float MaxHealt = 100.f;
-	float Health = 0.f;
 
 	UFUNCTION()
 	void DamegeTaken(
@@ -39,5 +38,10 @@ private:
 	class ATankVanguardGameMode* TankVanguardGameMode;
 
 public:	
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;		
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+
+	float Health = 0.f;
+
+	UFUNCTION()
+	void GiveHealth(float HealthAmount);
 };

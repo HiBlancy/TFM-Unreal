@@ -43,9 +43,6 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Ammo")
 	int32 MaxAmmo;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	int32 ExcessAmmo;
-
 private:
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	class USpringArmComponent* SpringArm;
@@ -63,4 +60,12 @@ private:
 	void Turn(float Value);
 
 	APlayerController* PlayerController;
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+	int32 ExcessAmmo;
+
+	UFUNCTION()
+	void GiveBullets(int32 AmmoAmount);
 };

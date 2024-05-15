@@ -50,3 +50,9 @@ float UHealthComponent::GetHealthPercent() const
 {
 	return Health / MaxHealt;
 }
+
+void UHealthComponent::GiveHealth(float HealthAmount)
+{
+	Health = Health + HealthAmount;
+	UE_LOG(LogTemp, Warning, TEXT("Health given, now"));
+}

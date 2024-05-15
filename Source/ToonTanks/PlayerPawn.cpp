@@ -6,6 +6,7 @@
 #include "Camera/CameraComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
+#include "HealthComponent.h"
 
 APlayerPawn::APlayerPawn()
 {
@@ -28,6 +29,8 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &APlayerPawn::Turn);
 
 	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &APlayerPawn::Fire); //Disparo del jugador
+
+	PlayerInputComponent->BindAction(TEXT("Reload"), IE_Pressed, this, &APlayerPawn::Reload); //Recargar 
 }
 
 void APlayerPawn::Tick(float DeltaTime)
@@ -59,12 +62,6 @@ void APlayerPawn::BeginPlay()
 	Super::BeginPlay();
 
 	PlayerController = Cast<APlayerController>(GetController());
-	
-	InputComponent->BindAction(
-		"Reload", //Nombre asignado desde el editor de la tecla
-		IE_Pressed, //Cuando se presiona
-		this, //Esto
-		&APlayerPawn::Reload); //Llama a esta funcion 
 }
 
 void APlayerPawn::Reload()
@@ -94,4 +91,9 @@ void APlayerPawn::Turn(float Value)
 	FRotator DeltaRotation = FRotator::ZeroRotator;
 	DeltaRotation.Yaw = Value * TurnRate * UGameplayStatics::GetWorldDeltaSeconds(this); 
 	AddActorLocalRotation(DeltaRotation, true);
+}
+
+void APlayerPawn::GiveBullets(int32 AmmoAmount)
+{
+	ExcessAmmo = ExcessAmmo + AmmoAmount;
 }
