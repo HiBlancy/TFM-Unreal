@@ -41,7 +41,6 @@ void APickable::OnPlayerEnterPickupBox(
 {
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Player entered pickup box!"));
 		Destroy();
 	}
 }

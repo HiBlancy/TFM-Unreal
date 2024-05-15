@@ -54,5 +54,8 @@ float UHealthComponent::GetHealthPercent() const
 void UHealthComponent::GiveHealth(float HealthAmount)
 {
 	Health = Health + HealthAmount;
-	UE_LOG(LogTemp, Warning, TEXT("Health given, now"));
+
+	Health = FMath::Clamp(Health, 0.f, 100.f);
+
+	UE_LOG(LogTemp, Warning, TEXT("Health given, now %f"), Health);
 }

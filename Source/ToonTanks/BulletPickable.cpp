@@ -8,10 +8,18 @@ void ABulletPickable::OnPlayerEnterPickupBox(UPrimitiveComponent* OverlapedComp,
 {
 	Super::OnPlayerEnterPickupBox(OverlapedComp, OtherActor, OtherComp, OtherBodyIndex, bFromSweep, SweepResult);
 
-		UE_LOG(LogTemp, Warning, TEXT("THIS IS Bullets!"));
+	APlayerPawn* Player = Cast<APlayerPawn>(OtherActor);
 
-		if (APlayerPawn* Player = Cast<APlayerPawn>(OtherActor))
-		{
-			Player->GiveBullets(5);
-		}
+	if (Player)
+	{
+		int32 NumAmmo = FMath::RandRange(2, 15); //Random entre 2 y 15 para que el drop de balas varie
+			
+		Player->GiveBullets(NumAmmo);
+
+		UE_LOG(LogTemp, Warning, TEXT("Gived %d of ammo"), NumAmmo);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No Bullets found on the player"));
+	}
 }
