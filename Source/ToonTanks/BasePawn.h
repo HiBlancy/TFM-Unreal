@@ -17,6 +17,9 @@ public:
 
 	void HandleDestruction();
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int32 CurrentAmmo;
+
 protected:
 	void RotateTurret(FVector LookAtTarget);
 	void Fire();

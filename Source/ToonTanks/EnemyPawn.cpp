@@ -6,6 +6,11 @@
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 
+AEnemyPawn::AEnemyPawn()
+{
+	CurrentAmmo = 35;
+}
+
 void AEnemyPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

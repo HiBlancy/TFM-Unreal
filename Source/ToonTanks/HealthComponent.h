@@ -15,6 +15,10 @@ class TOONTANKS_API UHealthComponent : public UActorComponent
 public:	
 	UHealthComponent();
 
+	UFUNCTION(BlueprintPure)
+	float GetHealthPercent() const;
+
+
 protected:
 	virtual void BeginPlay() override;
 
