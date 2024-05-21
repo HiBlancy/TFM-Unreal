@@ -6,12 +6,14 @@
 #include "PlayerPawn.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
-#include <Kismet/GameplayStatics.h>
+#include "Kismet/GameplayStatics.h"
+#include "NiagaraSystem.h"
+#include "NiagaraComponent.h"
+#include "NiagaraFunctionLibrary.h"
 
-// Sets default values
+
 APickable::APickable()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
 	PickupMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Pickup Mesh"));
@@ -51,5 +53,14 @@ void APickable::OnPlayerEnterPickupBox(
 			this,
 			PickupSound,
 			GetActorLocation());
+	}
+	if (NiagaraEffect)
+	{
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(
+			this,
+			NiagaraEffect,
+			GetActorLocation(),
+			GetActorRotation()
+		);
 	}
 }

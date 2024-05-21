@@ -25,6 +25,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "PickupSounds")
 	USoundBase* PickupSound;
 
+	UPROPERTY(EditAnywhere, Category = "Effects")
+	class UNiagaraSystem* NiagaraEffect;
+
 public:	
 	virtual void Tick(float DeltaTime) override;
 
