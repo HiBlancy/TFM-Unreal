@@ -6,6 +6,7 @@
 #include "PlayerPawn.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
+#include <Kismet/GameplayStatics.h>
 
 // Sets default values
 APickable::APickable()
@@ -42,5 +43,13 @@ void APickable::OnPlayerEnterPickupBox(
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		Destroy();
+	}
+
+	if (PickupSound) //Sonido diferente con cada pickup, por eso esta en el padre
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			PickupSound,
+			GetActorLocation());
 	}
 }

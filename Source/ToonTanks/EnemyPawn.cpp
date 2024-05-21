@@ -8,7 +8,7 @@
 
 AEnemyPawn::AEnemyPawn()
 {
-	CurrentAmmo = 35;
+	CurrentAmmo = 50;
 }
 
 void AEnemyPawn::Tick(float DeltaTime)

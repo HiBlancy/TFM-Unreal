@@ -40,4 +40,10 @@ private:
 
 	int32 TargetTowers = 0;
 	int32 GetTargetTowerCount();
+
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+	USoundBase* WinSound;
+
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+	USoundBase* LoseSound;
 };

@@ -18,6 +18,13 @@ void ATankVanguardGameMode::ActorDied(AActor* DeadActor)
 			TankVanguardPlayerController->SetPlayerEnabledState(false);
 		}		
 		GameOver(false);
+
+		if (LoseSound) //Sonido diferente con cada pickup, por eso esta en el padre
+		{
+			UGameplayStatics::PlaySound2D(
+				this,
+				LoseSound);
+		}
 	}
 	else if (AEnemyPawn* DestroyedTower = Cast<AEnemyPawn>(DeadActor))
 	{
@@ -26,6 +33,13 @@ void ATankVanguardGameMode::ActorDied(AActor* DeadActor)
 		if (TargetTowers == 0)
 		{
 			GameOver(true); //Termina el juego en que tu ganas
+
+			if (WinSound) //Sonido diferente con cada pickup, por eso esta en el padre
+			{
+				UGameplayStatics::PlaySound2D(
+					this,
+					WinSound);
+			}
 		}
 	}
 
@@ -76,6 +90,4 @@ int32 ATankVanguardGameMode::GetTargetTowerCount()
 	TArray<AActor*> EnemyTurrets;
 	UGameplayStatics::GetAllActorsOfClass(this, AEnemyPawn::StaticClass(), EnemyTurrets);
 	return EnemyTurrets.Num();
-
-
 }

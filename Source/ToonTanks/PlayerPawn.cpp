@@ -28,7 +28,7 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &APlayerPawn::Move);//Movieminto del jugar
 	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &APlayerPawn::Turn);
 
-	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &APlayerPawn::Fire); //Disparo del jugador
+	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &APlayerPawn::Fire); //Disparo del jugador, llama a la funcion padre
 
 	PlayerInputComponent->BindAction(TEXT("Reload"), IE_Pressed, this, &APlayerPawn::Reload); //Recargar 
 }
@@ -76,6 +76,14 @@ void APlayerPawn::Reload()
 		UE_LOG(LogTemp, Warning, TEXT("Reloaded %d bullets"), ReloadAmount);
 		UE_LOG(LogTemp, Warning, TEXT("You have %d more bullets"), ExcessAmmo);
 		UE_LOG(LogTemp, Warning, TEXT("Current %d bullets"), CurrentAmmo);
+		
+		if (ReloadSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(
+				this,
+				ReloadSound,
+				GetActorLocation());
+		}
 	}
 }
 

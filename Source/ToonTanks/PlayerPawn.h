@@ -61,6 +61,9 @@ private:
 
 	APlayerController* PlayerController;
 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	USoundBase* ReloadSound;
+
 public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")

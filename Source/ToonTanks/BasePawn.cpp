@@ -80,4 +80,12 @@ void ABasePawn::Fire()
 		Projectile->SetOwner(this);
 		//Cada vez que un actor instancia un proyectil, el proyectil es hijo de este
 	}
+
+	if (NoBulletSound && CurrentAmmo == 0) //Cuando no le quedan balas tiene otro sonido
+	{
+		UGameplayStatics::PlaySoundAtLocation(
+			this,
+			NoBulletSound,
+			GetActorLocation());
+	}
 }
