@@ -14,10 +14,8 @@ class TOONTANKS_API ATankVanguardPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
-
 public:
 
 	void SetPlayerEnabledState(bool bPlayerEnabled);
-
 
 };

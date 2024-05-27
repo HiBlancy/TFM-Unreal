@@ -34,6 +34,7 @@ public:
 	bool bAlive = true;
 
 	void Reload();
+	void RestartGame();
 
 protected:
 	// Called when the game starts or when spawned

@@ -31,6 +31,8 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAction(TEXT("Fire"), IE_Pressed, this, &APlayerPawn::Fire); //Disparo del jugador, llama a la funcion padre
 
 	PlayerInputComponent->BindAction(TEXT("Reload"), IE_Pressed, this, &APlayerPawn::Reload); //Recargar 
+
+	PlayerInputComponent->BindAction(TEXT("RestartGame"), IE_Pressed, this, &APlayerPawn::RestartGame); //Resetear el nivel
 }
 
 void APlayerPawn::Tick(float DeltaTime)
@@ -84,6 +86,16 @@ void APlayerPawn::Reload()
 				ReloadSound,
 				GetActorLocation());
 		}
+	}
+}
+
+void APlayerPawn::RestartGame()
+{
+	UWorld* World = GetWorld();
+	if (World)
+	{
+		FName MainMenuMap = *World->GetName();
+		UGameplayStatics::OpenLevel(this, MainMenuMap);
 	}
 }
 

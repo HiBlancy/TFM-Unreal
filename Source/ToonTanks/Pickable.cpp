@@ -60,7 +60,6 @@ void APickable::OnPlayerEnterPickupBox(
 			this,
 			NiagaraEffect,
 			GetActorLocation(),
-			GetActorRotation()
-		);
+			GetActorRotation());
 	}
 }

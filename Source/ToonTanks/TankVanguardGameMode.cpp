@@ -19,7 +19,7 @@ void ATankVanguardGameMode::ActorDied(AActor* DeadActor)
 		}		
 		GameOver(false);
 
-		if (LoseSound) //Sonido diferente con cada pickup, por eso esta en el padre
+		if (LoseSound)
 		{
 			UGameplayStatics::PlaySound2D(
 				this,
@@ -74,14 +74,12 @@ void ATankVanguardGameMode::HandelGameStart()
 		FTimerDelegate PlayerEnableTimerDelegate = FTimerDelegate::CreateUObject(
 			TankVanguardPlayerController,
 			&ATankVanguardPlayerController::SetPlayerEnabledState,
-			true
-		);
+			true);
 		GetWorldTimerManager().SetTimer(
 			PlayerEnableTimerHandle,
 			PlayerEnableTimerDelegate,
 			StartDelay,
-			false
-		);
+			false);
 	}
 }
 
