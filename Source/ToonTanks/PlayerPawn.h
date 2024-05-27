@@ -18,10 +18,8 @@ class TOONTANKS_API APlayerPawn : public ABasePawn
 public:
 	APlayerPawn();
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	void HandleDestruction();
@@ -34,13 +32,10 @@ public:
 	bool bAlive = true;
 
 	void Reload();
-	void RestartGame();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	//AMMO
 	UPROPERTY(EditAnywhere, Category = "Ammo")
 	int32 MaxAmmo;
 

@@ -18,4 +18,7 @@ public:
 
 	void SetPlayerEnabledState(bool bPlayerEnabled);
 
+	virtual void SetupInputComponent() override;
+
+	void RestartGame();
 };
