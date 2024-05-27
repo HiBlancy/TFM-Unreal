@@ -52,6 +52,7 @@ void AEnemyPawn::HandleDrop()
 			FRotator Rotation = GetActorRotation();
 			GetWorld()->SpawnActor<AActor>(SelectedDropItemClass, Location, Rotation);
 		}
+		//establezco desde el blueprint sus colision con overlap all o no collisions, pero como hago que ignore al enemigo pero al jugador no
 	}
 }
 
