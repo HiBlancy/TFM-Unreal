@@ -26,6 +26,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	void HandleDrop();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Drops");
+	TArray<TSubclassOf<AActor>> DropItemClasses;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Drops");
+	float DropProbability;
+
 private:
 	class APlayerPawn* Player;
 

@@ -22,12 +22,6 @@ void AEnemyPawn::Tick(float DeltaTime)
 	}
 }
 
-void AEnemyPawn::HandleDestruction()
-{
-	Super::HandleDestruction();
-	Destroy();
-}
-
 void AEnemyPawn::BeginPlay()
 {
 	Super::BeginPlay();
@@ -36,6 +30,29 @@ void AEnemyPawn::BeginPlay()
 	//castearlo porque como el enemigo es hijo de BasePawn, no puede almacenar puntero tipo padre el hijo
 
 	GetWorldTimerManager().SetTimer(FireRateTimerHandel, this, &AEnemyPawn::CheckFireCondition, FireRate, true);
+}
+
+void AEnemyPawn::HandleDestruction()
+{
+	Super::HandleDestruction();
+
+	HandleDrop();
+	Destroy();
+}
+
+void AEnemyPawn::HandleDrop()
+{
+	if (FMath::RandRange(0.0f, 1.0f) <= DropProbability && DropItemClasses.Num() > 0) //random de ver si spawnear o no el item
+	{
+		int32 RandomIndex = FMath::RandRange(0, DropItemClasses.Num() - 1);
+		TSubclassOf<AActor> SelectedDropItemClass = DropItemClasses[RandomIndex]; //eligue entre los pickables que hay
+		if (SelectedDropItemClass) //una vez seleccionado el pickable lo spawnea el la localizacion del enmigo
+		{
+			FVector Location = GetActorLocation();
+			FRotator Rotation = GetActorRotation();
+			GetWorld()->SpawnActor<AActor>(SelectedDropItemClass, Location, Rotation);
+		}
+	}
 }
 
 void AEnemyPawn::CheckFireCondition()
