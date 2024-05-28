@@ -21,7 +21,7 @@ void ABulletPickable::OnPlayerEnterPickupBox(UPrimitiveComponent* OverlapedComp,
 
 	if (Player)
 	{
-		int32 NumAmmo = FMath::RandRange(2, 8); //Random entre 2 y 15 para que el drop de balas varie
+		int32 NumAmmo = FMath::RandRange(3, 9); //Random entre 3 y 9 para que el drop de balas varie
 			
 		Player->GiveBullets(NumAmmo);
 

@@ -28,6 +28,8 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Effects")
 	class UNiagaraSystem* NiagaraEffect;
 
+	FRotator CurrentRotation;
+
 public:	
 	virtual void Tick(float DeltaTime) override;
 
@@ -36,5 +38,11 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pickup")
 	class UCapsuleComponent* PickupBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rotation on self")
+	float RotationSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Rotation on self")
+	FRotator TargetRotation;
 
 };

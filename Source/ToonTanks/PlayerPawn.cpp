@@ -73,10 +73,6 @@ void APlayerPawn::Reload()
 		int32 ReloadAmount = FMath::Min(MissingAmmo, ExcessAmmo);
 		CurrentAmmo += ReloadAmount;
 		ExcessAmmo -= ReloadAmount;
-
-		UE_LOG(LogTemp, Warning, TEXT("Reloaded %d bullets"), ReloadAmount);
-		UE_LOG(LogTemp, Warning, TEXT("You have %d more bullets"), ExcessAmmo);
-		UE_LOG(LogTemp, Warning, TEXT("Current %d bullets"), CurrentAmmo);
 		
 		if (ReloadSound)
 		{

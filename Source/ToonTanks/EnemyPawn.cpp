@@ -52,7 +52,6 @@ void AEnemyPawn::HandleDrop()
 			FRotator Rotation = GetActorRotation();
 			GetWorld()->SpawnActor<AActor>(SelectedDropItemClass, Location, Rotation);
 		}
-		//establezco desde el blueprint sus colision con overlap all o no collisions, pero como hago que ignore al enemigo pero al jugador no
 	}
 }
 
@@ -63,9 +62,9 @@ void AEnemyPawn::CheckFireCondition()
 		return;
 	}
 
-	if (InFireRange() && Player->bAlive)
+	if (InFireRange() && Player->bAlive) //si esta en el rango y el jugador esta vivo
 	{
-		Fire();
+		Fire(); //llama a la funcion fire del padre
 	}
 }
 
@@ -75,11 +74,10 @@ bool AEnemyPawn::InFireRange()
 	if(Player)
 	{
 		float Distance = FVector::Dist(GetActorLocation(), Player->GetActorLocation());
-		if (Distance <= FireRange)
+		if (Distance <= FireRange) //si esta en el area el jugador devuelve true
 		{
 			return true;
 		}
 	}
-
 	return false;
 }

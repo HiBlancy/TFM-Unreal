@@ -22,16 +22,24 @@ APickable::APickable()
 	PickupBox = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Pickup Box"));
 	PickupBox->SetupAttachment(PickupMesh);
 	PickupBox->OnComponentBeginOverlap.AddDynamic(this, &APickable::OnPlayerEnterPickupBox);
+
+	PrimaryActorTick.bCanEverTick = true;
+	RotationSpeed = 5.0f;  
 }
 
 void APickable::BeginPlay()
 {
 	Super::BeginPlay();
+	CurrentRotation = GetActorRotation();
 }
 
 void APickable::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	FRotator DeltaRotation(0.0f, RotationSpeed * DeltaTime, 0.0f);
+
+	AddActorLocalRotation(DeltaRotation);
 }
 
 void APickable::OnPlayerEnterPickupBox(
